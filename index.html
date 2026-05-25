@@ -21,6 +21,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:28px 60px;display:f
 .nav-links a:hover{color:var(--gold)}
 .nav-links a:hover::after{width:100%}
 
+/* HERO PHOTO */
+.hero-photo-wrap{position:absolute;right:60px;top:50%;transform:translateY(-50%);opacity:0;animation:fadeUp 1s .6s forwards}
+.hero-photo-frame{position:relative;width:260px;height:320px}
+.hero-photo-frame::before{content:'';position:absolute;inset:-10px;border:1px solid rgba(201,168,76,.35);pointer-events:none;z-index:1}
+.hero-photo-frame::after{content:'';position:absolute;bottom:-10px;right:-10px;width:80px;height:80px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);pointer-events:none;z-index:1}
+.hero-photo{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(20%) contrast(1.05);display:block}
+.hero-photo-label{position:absolute;bottom:-32px;left:0;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);opacity:.7}
+@media(max-width:900px){.hero-photo-wrap{position:relative;right:auto;top:auto;transform:none;width:140px;height:175px;margin-bottom:28px}.hero-photo-frame{width:140px;height:175px}}
+
 /* HERO */
 .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 60px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,.06) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(201,168,76,.04) 0%,transparent 50%)}
@@ -207,6 +216,15 @@ footer{padding:36px 60px;border-top:1px solid #1e1e1e;display:flex;justify-conte
   <p class="hero-eyebrow">Senior Architect · BIM Specialist · Project Manager</p>
   <h1 class="hero-name">Ahmed<br><span>Salah</span><br>Mohammed</h1>
   <p class="hero-subtitle">Delivering High-End Residential Architecture · Kuwait &amp; Beyond</p>
+
+  <!-- Portrait -->
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-frame">
+      <img class="hero-photo" src="WhatsApp_Image_2026-05-25_at_10_46_06_AM.jpeg" alt="Ahmed Salah Mohammed">
+    </div>
+    <span class="hero-photo-label">Ahmed Salah Mohammed</span>
+  </div>
+
   <div class="hero-stats">
     <div class="stat-item"><span class="stat-num">7+</span><span class="stat-label">Years Practice</span></div>
     <div class="stat-item"><span class="stat-num">10+</span><span class="stat-label">Projects</span></div>

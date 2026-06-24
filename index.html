@@ -31,6 +31,85 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:28px 60px;display:f
 .hero-photo-label{position:absolute;bottom:-32px;left:0;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);opacity:.7}
 @media(max-width:900px){.hero-photo-wrap{position:relative;right:auto;top:auto;transform:none;width:140px;height:175px;margin-bottom:28px}.hero-photo-frame{width:140px;height:175px}}
 
+/* ── NOISE GRAIN OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.5;animation:noiseAnim 8s steps(10) infinite}
+@keyframes noiseAnim{0%,100%{transform:translate(0,0)}10%{transform:translate(-1%,-1%)}20%{transform:translate(1%,1%)}30%{transform:translate(-1%,1%)}40%{transform:translate(1%,-1%)}50%{transform:translate(-2%,0)}60%{transform:translate(0,2%)}70%{transform:translate(2%,0)}80%{transform:translate(0,-2%)}90%{transform:translate(-2%,2%)}}
+
+/* ── MOUSE SPOTLIGHT ── */
+.spotlight{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease;filter:blur(20px)}
+
+/* ── SIDE NAV DOTS ── */
+.side-dots{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:9000;display:flex;flex-direction:column;gap:14px}
+.side-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.25);cursor:pointer;transition:all .4s;position:relative}
+.side-dot.active{background:var(--gold);transform:scale(1.5)}
+.side-dot:hover{background:var(--gold-light)}
+.side-dot::before{content:attr(data-label);position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
+.side-dot:hover::before{opacity:1}
+@media(max-width:900px){.side-dots{display:none}}
+
+/* ── SOFTWARE PROFICIENCY RINGS ── */
+.software-section{padding:80px 60px;background:var(--dark2)}
+.software-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:60px}
+.sw-ring-wrap{text-align:center}
+.sw-ring{width:110px;height:110px;margin:0 auto 16px;position:relative}
+.sw-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.sw-ring circle{fill:none;stroke-width:3;stroke-linecap:round}
+.sw-ring .track{stroke:#222}
+.sw-ring .fill{stroke:var(--gold);stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1)}
+.sw-ring .fill.glow{filter:drop-shadow(0 0 4px rgba(201,168,76,.5))}
+.sw-ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--gold)}
+.sw-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-light)}
+.sw-sublabel{font-size:.5rem;letter-spacing:.1em;color:var(--grey);margin-top:4px}
+@media(max-width:900px){.software-grid{grid-template-columns:repeat(2,1fr)}.software-section{padding:60px 24px}}
+
+/* ── SCRAMBLE TEXT ── */
+.scramble{display:inline-block}
+
+/* ── MAGNETIC BUTTON ── */
+.magnetic{display:inline-block;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+
+/* ── TYPEWRITER ── */
+.typewriter-wrap{overflow:hidden;white-space:nowrap}
+.typewriter{display:inline-block;border-right:1px solid var(--gold);animation:blink .7s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+
+/* ── HORIZONTAL PROJECT TICKER ── */
+.project-ticker{padding:50px 0;background:var(--black);overflow:hidden;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e}
+.project-ticker-track{display:flex;gap:60px;width:max-content;animation:tickerScroll 30s linear infinite;white-space:nowrap}
+.project-ticker-track:hover{animation-play-state:paused}
+.ticker-item{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:rgba(201,168,76,.25);cursor:default;transition:color .3s;flex-shrink:0}
+.ticker-item:hover{color:var(--gold)}
+.ticker-sep{color:rgba(201,168,76,.1);font-size:1rem}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── FULL PROJECT TABLE ── */
+.projects-table-section{padding:80px 60px;background:var(--dark)}
+.proj-table{width:100%;border-collapse:collapse;margin-top:50px}
+.proj-table tr{border-bottom:1px solid #1e1e1e;cursor:default;transition:background .3s}
+.proj-table tr:hover td{color:var(--gold)}
+.proj-table td{padding:20px 0;font-size:.72rem;letter-spacing:.05em;color:var(--grey-light);vertical-align:middle}
+.proj-table td:first-child{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);padding-right:30px;transition:color .3s}
+.proj-table .proj-num{font-size:.55rem;letter-spacing:.25em;color:var(--gold);width:40px}
+.proj-table .proj-area{text-align:right;color:var(--gold)}
+.proj-status{display:inline-block;padding:3px 10px;border:1px solid;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase}
+.proj-status.uc{border-color:rgba(201,168,76,.4);color:var(--gold)}
+.proj-status.dd{border-color:rgba(255,255,255,.15);color:var(--grey)}
+.proj-status.dc{border-color:rgba(100,200,100,.3);color:#8bc34a}
+@media(max-width:900px){.projects-table-section{padding:60px 24px}.proj-table td{font-size:.62rem}}
+
+/* ── ENHANCED HERO SUBTITLE ── */
+.hero-subtitle{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-top:32px;opacity:0;animation:fadeUp 1s .7s forwards}
+
+/* ── GLITCH ON LOADER ── */
+.loader-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;animation:glitchPulse 2s ease infinite}
+@keyframes glitchPulse{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:2px 0 rgba(201,168,76,.4),-2px 0 rgba(201,168,76,.2)}}
+
+/* ── SECTION PARALLAX DEPTH ── */
+.parallax-text{position:relative;z-index:1}
+
+/* ── HIGHLIGHT GOLD BAR ── */
+.gold-accent-bar{width:0;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:20px;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.gold-accent-bar.visible{width:120px}
 /* HERO */
 .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 60px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,.06) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(201,168,76,.04) 0%,transparent 50%)}
@@ -39,7 +118,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:28px 60px;display:f
 .hero-stats,.hero-scroll,.hero-photo-wrap{z-index:1}
 .ambient-glow{position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.09),transparent 70%);filter:blur(50px);pointer-events:none;z-index:0;animation:drift 16s ease-in-out infinite alternate}
 @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(70px,50px)}}
-/* MARQUEE */
 .marquee-strip{overflow:hidden;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;padding:22px 0;background:var(--dark);position:relative;z-index:1}
 .marquee-track{display:flex;gap:36px;white-space:nowrap;width:max-content;animation:marquee 32s linear infinite}
 .marquee-track span{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--grey);letter-spacing:.04em}
@@ -250,6 +328,14 @@ footer{padding:36px 60px;border-top:1px solid #1e1e1e;display:flex;justify-conte
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="spotlight" id="spotlight"></div>
+<nav class="side-dots" id="sideDots">
+  <div class="side-dot active" data-section="hero" data-label="Home"></div>
+  <div class="side-dot" data-section="about" data-label="About"></div>
+  <div class="side-dot" data-section="experience" data-label="Experience"></div>
+  <div class="side-dot" data-section="projects" data-label="Projects"></div>
+  <div class="side-dot" data-section="contact" data-label="Contact"></div>
+</nav>
 
 <div class="loader" id="loader">
   <div class="loader-name">A · S · M</div>
@@ -325,34 +411,35 @@ footer{padding:36px 60px;border-top:1px solid #1e1e1e;display:flex;justify-conte
 <section id="about">
   <div class="about">
     <div>
-      <p class="section-label">Profile</p>
-      <h2 class="section-title">Where Technical<br>Precision Meets<br>Design Vision</h2>
-      <p class="about-text">Senior Architect and BIM Specialist with over seven years of experience delivering premium residential and mixed-use developments across Kuwait and Egypt. My practice is built on rigorous process, creative conviction, and unwavering commitment to the client's vision — concept to completion.</p>
+      <p class="section-label scramble" data-observe>Profile</p>
+      <h2 class="section-title" style="font-size:clamp(2.5rem,4.5vw,4.5rem)">Where Technical<br>Precision Meets<br><span style="color:var(--gold)">Design Vision.</span></h2>
+      <div class="gold-accent-bar" data-observe></div>
+      <p class="about-text">Senior Architect and BIM Specialist with 7+ years of experience delivering premium residential and mixed-use developments across Kuwait and Egypt. My practice is built on rigorous process, creative conviction, and MBA-level strategic management — concept through construction.</p>
       <blockquote class="about-quote">"Architecture is not just the art of building spaces — it is the art of shaping how people live, feel, and belong within them."</blockquote>
-      <p class="about-text">Complemented by an MBA from Royal Business College UK, I approach each project not just as an architect, but as a strategic partner — managing budgets, timelines, and client relationships with the same precision I apply to design.</p>
+      <p class="about-text">Combining Expert-level Revit BIM coordination, full multidisciplinary MEP/structural clash detection, Kuwait Municipality permit submissions, and on-site QC — backed by an MBA from Royal Business College UK in Project Management, Finance & Strategy.</p>
     </div>
     <div>
-      <p class="section-label">Technical Expertise</p>
-      <div class="gold-line"></div>
-      <div class="skills-grid">
-        <div class="skill-item">Autodesk Revit — Expert</div>
-        <div class="skill-item">AutoCAD 2D / 3D</div>
+      <p class="section-label scramble" data-observe>Technical Expertise</p>
+      <div class="gold-accent-bar" data-observe></div>
+      <div class="skills-grid" data-observe>
+        <div class="skill-item">Autodesk Revit <span style="color:var(--gold);float:right;font-size:.5rem">EXPERT</span></div>
+        <div class="skill-item">AutoCAD 2D / 3D <span style="color:var(--gold);float:right;font-size:.5rem">EXPERT</span></div>
         <div class="skill-item">BIM Coordination & MEP</div>
-        <div class="skill-item">Navisworks Clash</div>
-        <div class="skill-item">SketchUp · Lumion</div>
+        <div class="skill-item">Navisworks Clash Detection</div>
+        <div class="skill-item">SketchUp · Lumion · Rhino</div>
+        <div class="skill-item">Adobe Photoshop & Illustrator</div>
         <div class="skill-item">Site Supervision & QC</div>
-        <div class="skill-item">Project Scheduling</div>
-        <div class="skill-item">Contract Management</div>
         <div class="skill-item">Shop Drawing Production</div>
-        <div class="skill-item">Municipality Submissions</div>
-        <div class="skill-item">3D Visualization</div>
-        <div class="skill-item">Risk Management (MBA)</div>
+        <div class="skill-item">Municipality Submissions (KWT)</div>
+        <div class="skill-item">BIM Execution Plans (BEP)</div>
+        <div class="skill-item">BOQ & Material Take-off</div>
+        <div class="skill-item">Risk & Contract Management</div>
       </div>
       <div style="margin-top:40px">
         <p class="section-label" style="margin-bottom:16px">Professional Memberships</p>
-        <div class="membership-item">Kuwait Society of Engineers — Member since 2018</div>
-        <div class="membership-item">Arab Engineering Union — Member since 2018</div>
-        <div class="membership-item">Egyptian Engineering Syndicate — Member since 2018</div>
+        <div class="membership-item"><span style="color:var(--gold);margin-right:8px">◆</span>Kuwait Society of Engineers — Member since 2018</div>
+        <div class="membership-item"><span style="color:var(--gold);margin-right:8px">◆</span>Arab Engineering Union — Member since 2018</div>
+        <div class="membership-item"><span style="color:var(--gold);margin-right:8px">◆</span>Egyptian Engineering Syndicate — Member since 2018</div>
       </div>
     </div>
   </div>
@@ -498,15 +585,72 @@ footer{padding:36px 60px;border-top:1px solid #1e1e1e;display:flex;justify-conte
 
 <div class="gold-divider"></div>
 
+<!-- SOFTWARE RINGS -->
+<section class="software-section" id="software">
+  <p class="section-label scramble" data-observe>Software Proficiency</p>
+  <h2 class="section-title" data-observe style="font-size:clamp(2rem,4vw,4rem)">Tools of<br><span style="color:var(--gold)">Mastery</span></h2>
+  <div class="software-grid" data-observe id="softwareGrid">
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill glow" cx="50" cy="50" r="45" data-pct="95"/></svg><span class="sw-ring-pct">95%</span></div><div class="sw-label">Autodesk Revit</div><div class="sw-sublabel">BIM Expert</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="90"/></svg><span class="sw-ring-pct">90%</span></div><div class="sw-label">AutoCAD 2D / 3D</div><div class="sw-sublabel">Expert</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="82"/></svg><span class="sw-ring-pct">82%</span></div><div class="sw-label">Navisworks</div><div class="sw-sublabel">Clash Detection</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="78"/></svg><span class="sw-ring-pct">78%</span></div><div class="sw-label">Lumion</div><div class="sw-sublabel">Visualization</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="75"/></svg><span class="sw-ring-pct">75%</span></div><div class="sw-label">SketchUp</div><div class="sw-sublabel">3D Modelling</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="70"/></svg><span class="sw-ring-pct">70%</span></div><div class="sw-label">Rhino 3D</div><div class="sw-sublabel">Parametric</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="80"/></svg><span class="sw-ring-pct">80%</span></div><div class="sw-label">Photoshop</div><div class="sw-sublabel">Adobe Suite</div></div>
+    <div class="sw-ring-wrap"><div class="sw-ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" cx="50" cy="50" r="45" data-pct="72"/></svg><span class="sw-ring-pct">72%</span></div><div class="sw-label">Illustrator</div><div class="sw-sublabel">Adobe Suite</div></div>
+  </div>
+</section>
+
+<!-- PROJECT TICKER -->
+<div class="project-ticker">
+  <div class="project-ticker-track">
+    <span class="ticker-item">VILLA MR. AHMED MADOUH</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">RESIDENTIAL NASIMA B</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">VILLA SULAIMAN AL KHUNAINI</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">DIWAN MADOUH</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">DAR AISHA — MESSILA</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">RAS-CO3 NEIGHBORHOOD</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">APARTMENT ANB</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">VILLA VAM — SHUWAIKH</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">VILLA MR. AHMED MADOUH</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">RESIDENTIAL NASIMA B</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">VILLA SULAIMAN AL KHUNAINI</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">DIWAN MADOUH</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">DAR AISHA — MESSILA</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">RAS-CO3 NEIGHBORHOOD</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">APARTMENT ANB</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">VILLA VAM — SHUWAIKH</span><span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<!-- ALL PROJECTS TABLE -->
+<section class="projects-table-section">
+  <p class="section-label scramble reveal-up" data-observe>Complete Project Record</p>
+  <h2 class="section-title reveal-up" data-observe style="font-size:clamp(2rem,4vw,4rem)">17,000+ m²<br><span style="color:var(--gold)">Designed & Built</span></h2>
+  <table class="proj-table reveal-up" data-observe>
+    <tr><td class="proj-num">01</td><td>DAR AISHA<br><span style="color:var(--grey);font-size:.62rem">Al Messila · Kuwait</span></td><td>Mixed-Use · 6 Plots</td><td class="proj-area">5,080 m²</td><td><span class="proj-status uc">Under Construction</span></td></tr>
+    <tr><td class="proj-num">02</td><td>RAS-CO3<br><span style="color:var(--grey);font-size:.62rem">Messila · Kuwait</span></td><td>Villas Neighborhood · 7 Plots</td><td class="proj-area">5,930 m²</td><td><span class="proj-status dd">Design Phase</span></td></tr>
+    <tr><td class="proj-num">03</td><td>VILLA MR. AHMED MADOUH<br><span style="color:var(--grey);font-size:.62rem">Al-Shuwaikh · Kuwait</span></td><td>Contemporary Palace</td><td class="proj-area">3,000 m²</td><td><span class="proj-status uc">Under Construction</span></td></tr>
+    <tr><td class="proj-num">04</td><td>APARTMENT ANB<br><span style="color:var(--grey);font-size:.62rem">Al Rawda · Kuwait</span></td><td>Rental Compound</td><td class="proj-area">2,000 m²</td><td><span class="proj-status uc">Under Construction</span></td></tr>
+    <tr><td class="proj-num">05</td><td>VILLA VAM<br><span style="color:var(--grey);font-size:.62rem">Al-Shuwaikh · Kuwait</span></td><td>Private Villa</td><td class="proj-area">2,000 m²</td><td><span class="proj-status uc">Under Construction</span></td></tr>
+    <tr><td class="proj-num">06</td><td>RESIDENTIAL NASIMA B<br><span style="color:var(--grey);font-size:.62rem">Al Rawda · Kuwait</span></td><td>6 Residential Villas</td><td class="proj-area">2,250 m²</td><td><span class="proj-status dd">Design Phase</span></td></tr>
+    <tr><td class="proj-num">07</td><td>VILLA SULAIMAN AL KHUNAINI<br><span style="color:var(--grey);font-size:.62rem">Odaylia · Kuwait</span></td><td>Private + 2 Rental Units</td><td class="proj-area">1,000 m²</td><td><span class="proj-status dc">Design Complete</span></td></tr>
+    <tr><td class="proj-num">08</td><td>DIWAN MADOUH<br><span style="color:var(--grey);font-size:.62rem">Al-Shuwaikh · Kuwait</span></td><td>Recreational Diwan</td><td class="proj-area">1,000 m²</td><td><span class="proj-status uc">Under Construction</span></td></tr>
+    <tr><td class="proj-num">09</td><td>VILLA VNH<br><span style="color:var(--grey);font-size:.62rem">South Khaitan · Kuwait</span></td><td>Private Villa</td><td class="proj-area">400 m²</td><td><span class="proj-status dd">Design Phase</span></td></tr>
+  </table>
+</section>
+
+<div class="gold-divider"></div>
+
 <!-- BY THE NUMBERS -->
 <section class="numbers-section">
   <p class="section-label reveal-up" data-observe>By The Numbers</p>
   <h2 class="section-title reveal-up" data-observe style="font-size:clamp(2.5rem,5vw,5rem)">Built on<br><span style="color:var(--gold)">Results</span></h2>
   <div class="numbers-grid" data-observe>
     <div class="number-box"><span class="number-val" data-count-to="7" data-suffix="+">0</span><span class="number-desc">Years of Practice</span></div>
-    <div class="number-box"><span class="number-val" data-count-to="4" data-suffix="">0</span><span class="number-desc">Major Projects Delivered</span></div>
-    <div class="number-box"><span class="number-val" data-count-to="100" data-suffix="%">0</span><span class="number-desc">BIM Coordination Rate</span></div>
-    <div class="number-box"><span class="number-val" data-count-to="2" data-suffix="">0</span><span class="number-desc">Countries — Kuwait & Egypt</span></div>
+    <div class="number-box"><span class="number-val" data-count-to="9" data-suffix="+">0</span><span class="number-desc">Projects Delivered</span></div>
+    <div class="number-box"><span class="number-val" data-count-to="17" data-suffix="K m²">0</span><span class="number-desc">Total Area Managed</span></div>
+    <div class="number-box"><span class="number-val" data-count-to="3" data-suffix="">0</span><span class="number-desc">Engineering Memberships</span></div>
   </div>
 </section>
 
@@ -679,6 +823,134 @@ document.querySelectorAll('.project-visual').forEach(el=>{
 
 /* ─── GOLD LINE (already in HTML) ─── */
 document.querySelectorAll('.gold-line').forEach(el=>io.observe(el));
+
+/* ─── GOLD ACCENT BARS ─── */
+document.querySelectorAll('.gold-accent-bar').forEach(el=>io.observe(el));
+
+/* ─── MOUSE SPOTLIGHT ─── */
+const spotlight = document.getElementById('spotlight');
+document.addEventListener('mousemove',e=>{spotlight.style.left=e.clientX+'px';spotlight.style.top=e.clientY+'px';},{passive:true});
+
+/* ─── SIDE DOTS NAVIGATION ─── */
+const sections = ['hero','about','experience','projects','contact'];
+const dots = document.querySelectorAll('.side-dot');
+dots.forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    const sec = document.getElementById(dot.dataset.section);
+    if(sec) sec.scrollIntoView({behavior:'smooth'});
+  });
+});
+const sectionEls = sections.map(id=>document.getElementById(id)).filter(Boolean);
+const dotObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      dots.forEach(d=>d.classList.remove('active'));
+      const idx = sections.indexOf(e.target.id);
+      if(idx>-1 && dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+},{threshold:.4});
+sectionEls.forEach(el=>dotObs.observe(el));
+
+/* ─── MAGNETIC BUTTONS ─── */
+document.querySelectorAll('.contact-icon,.nav-link').forEach(el=>{
+  el.classList.add('magnetic');
+  el.addEventListener('mousemove',ev=>{
+    const r=el.getBoundingClientRect();
+    const x=(ev.clientX-r.left-r.width/2)*.25;
+    const y=(ev.clientY-r.top-r.height/2)*.25;
+    el.style.transform=`translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave',()=>{el.style.transform='translate(0,0)';});
+});
+
+/* ─── TEXT SCRAMBLE ─── */
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·—';
+function scrambleText(el){
+  const original = el.textContent;
+  let frame = 0;
+  const totalFrames = 18;
+  const interval = setInterval(()=>{
+    el.textContent = original.split('').map((ch,i)=>{
+      if(i < frame/totalFrames*original.length) return ch;
+      if(ch===' ') return ' ';
+      return chars[Math.floor(Math.random()*chars.length)];
+    }).join('');
+    frame++;
+    if(frame>totalFrames){el.textContent=original;clearInterval(interval);}
+  },40);
+}
+const scrambleObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){scrambleText(e.target);scrambleObs.unobserve(e.target);}});
+},{threshold:.5});
+document.querySelectorAll('.scramble').forEach(el=>scrambleObs.observe(el));
+
+/* ─── SOFTWARE RINGS ANIMATION ─── */
+const swObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll('.fill[data-pct]').forEach(circle=>{
+      const pct = +circle.dataset.pct;
+      const circumference = 2*Math.PI*45;
+      const offset = circumference*(1-pct/100);
+      circle.style.strokeDasharray = circumference;
+      circle.style.strokeDashoffset = circumference;
+      setTimeout(()=>{circle.style.strokeDashoffset=offset;},200);
+    });
+    swObs.unobserve(e.target);
+  });
+},{threshold:.3});
+const swGrid = document.getElementById('softwareGrid');
+if(swGrid) swObs.observe(swGrid);
+
+/* ─── HERO PARALLAX ON MOUSE ─── */
+const heroSection = document.querySelector('.hero');
+if(heroSection){
+  heroSection.addEventListener('mousemove',ev=>{
+    const cx=heroSection.offsetWidth/2, cy=heroSection.offsetHeight/2;
+    const dx=(ev.clientX-cx)/cx, dy=(ev.clientY-cy)/cy;
+    const photo=document.querySelector('.hero-photo-wrap');
+    if(photo) photo.style.transform=`translateY(-15px) perspective(800px) rotateY(${dx*4}deg) rotateX(${-dy*3}deg)`;
+    const name=document.querySelector('.hero-name');
+    if(name) name.style.transform=`translateX(${dx*8}px)`;
+  },{passive:true});
+  heroSection.addEventListener('mouseleave',()=>{
+    const photo=document.querySelector('.hero-photo-wrap');
+    if(photo) photo.style.transform='translateY(-15px)';
+    const name=document.querySelector('.hero-name');
+    if(name) name.style.transform='translateX(0)';
+  });
+}
+
+/* ─── TYPEWRITER HERO EYEBROW ─── */
+const eyebrow = document.querySelector('.hero-eyebrow');
+if(eyebrow){
+  const text = eyebrow.textContent;
+  eyebrow.textContent='';
+  eyebrow.style.opacity='1';
+  let i=0;
+  const tw = setInterval(()=>{
+    eyebrow.textContent = text.slice(0,i) + (i<text.length?'|':'');
+    i++;
+    if(i>text.length) clearInterval(tw);
+  },55);
+}
+
+/* ─── PROJECT TABLE ROW REVEAL ─── */
+document.querySelectorAll('.proj-table tr').forEach((tr,i)=>{
+  tr.style.opacity='0';
+  tr.style.transform='translateX(-20px)';
+  tr.style.transition=`opacity .5s ${i*.07}s ease, transform .5s ${i*.07}s ease`;
+});
+const tableObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('tr').forEach(tr=>{tr.style.opacity='1';tr.style.transform='translateX(0)';});
+      tableObs.unobserve(e.target);
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.proj-table').forEach(t=>tableObs.observe(t));
 
 /* ─── SMOOTH SCROLL ─── */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{

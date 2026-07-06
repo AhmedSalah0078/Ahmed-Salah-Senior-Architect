@@ -550,6 +550,45 @@ body.cursor-drag .cursor-label{opacity:1}
   .section-title{font-size:clamp(1.8rem,7vw,3.5rem)}
 }
 
+
+/* ── HERO PHOTO MOBILE (top-right fixed) ── */
+@media(max-width:768px){
+  .hero-photo-wrap{
+    position:fixed !important;
+    top:14px !important;
+    right:16px !important;
+    left:auto !important;
+    bottom:auto !important;
+    width:46px !important;
+    height:46px !important;
+    border-radius:50% !important;
+    overflow:hidden !important;
+    border:1.5px solid rgba(201,168,76,.6) !important;
+    box-shadow:0 0 0 3px rgba(201,168,76,.12) !important;
+    z-index:9999 !important;
+    margin:0 !important;
+    opacity:1 !important;
+    animation:none !important;
+    transform:none !important
+  }
+  .hero-photo-frame{
+    width:46px !important;
+    height:46px !important;
+    border-radius:50% !important;
+    overflow:hidden !important
+  }
+  .hero-photo-frame::before,
+  .hero-photo-frame::after{display:none !important}
+  .hero-photo{
+    width:100% !important;
+    height:100% !important;
+    border-radius:50% !important;
+    object-fit:cover !important;
+    object-position:center top !important
+  }
+  .hero-photo-label{display:none !important}
+}
+
 </style>
 </head>
 <body>
@@ -1119,26 +1158,6 @@ setTimeout(()=>{
   });
 }, 2200);
 
-/* ─── PROJECT IMAGE WIPE + 3D TILT ─── */
-document.querySelectorAll('.project-visual').forEach(el=>{
-  /* wrap for wipe */
-  const wrap = document.createElement('div');
-  wrap.className='project-visual-wrap';
-  el.parentNode.insertBefore(wrap, el);
-  wrap.appendChild(el);
-  io.observe(wrap);
-
-  /* 3D tilt */
-  el.classList.add('tilt-card');
-  el.addEventListener('mousemove',ev=>{
-    const r=el.getBoundingClientRect();
-    const x=((ev.clientX-r.left)/r.width-.5)*18;
-    const y=((ev.clientY-r.top)/r.height-.5)*-14;
-    el.style.transform=`perspective(800px) rotateY(${x}deg) rotateX(${y}deg) scale(1.02)`;
-  });
-  el.addEventListener('mouseleave',()=>{el.style.transform='perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)';});
-});
-
 /* ─── GOLD LINE (already in HTML) ─── */
 document.querySelectorAll('.gold-line').forEach(el=>io.observe(el));
 
@@ -1151,15 +1170,7 @@ document.addEventListener('mousemove',e=>{spotlight.style.left=e.clientX+'px';sp
 
 
 
-/* ─── MAGNETIC BUTTONS ─── */
-document.querySelectorAll('.contact-icon,.nav-link').forEach(el=>{
-  el.classList.add('magnetic');
-  el.addEventListener('mousemove',ev=>{
-    const r=el.getBoundingClientRect();
-    const x=(ev.clientX-r.left-r.width/2)*.25;
-    const y=(ev.clientY-r.top-r.height/2)*.25;
-    el.style.transform=`translate(${x}px,${y}px)`;
-  });
+/* magnetic buttons - removed */
   el.addEventListener('mouseleave',()=>{el.style.transform='translate(0,0)';});
 });
 
@@ -1184,23 +1195,7 @@ const scrambleObs = new IntersectionObserver(entries=>{
 },{threshold:.5});
 document.querySelectorAll('.scramble').forEach(el=>scrambleObs.observe(el));
 
-/* ─── SOFTWARE RINGS ANIMATION ─── */
-const swObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    e.target.querySelectorAll('.fill[data-pct]').forEach(circle=>{
-      const pct = +circle.dataset.pct;
-      const circumference = 2*Math.PI*45;
-      const offset = circumference*(1-pct/100);
-      circle.style.strokeDasharray = circumference;
-      circle.style.strokeDashoffset = circumference;
-      setTimeout(()=>{circle.style.strokeDashoffset=offset;},200);
-    });
-    swObs.unobserve(e.target);
-  });
-},{threshold:.3});
-const swGrid = document.getElementById('softwareGrid');
-if(swGrid) swObs.observe(swGrid);
+/* sw obs - handled by new advanced JS */
 
 /* ─── HERO PARALLAX ON MOUSE ─── */
 const heroSection = document.querySelector('.hero');
@@ -1656,6 +1651,12 @@ allSectionIds.map(id=>document.getElementById(id)).filter(Boolean).forEach(el=>s
 document.querySelectorAll('.number-box').forEach(box=>{
   box.addEventListener('mouseenter',()=>{ const v=box.querySelector('.number-val'); if(v){ const a=v.querySelector('::after'); } });
 });
+
+
+/* ─── GALLERY ALIASES (backward compat) ─── */
+function closeGallery(){ closeLightbox(); }
+function galleryNext(){ lightboxNav(1); }
+function galleryPrev(){ lightboxNav(-1); }
 
 </script>
 </body>

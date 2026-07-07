@@ -1193,7 +1193,30 @@ const scrambleObs = new IntersectionObserver(entries=>{
 },{threshold:.5});
 document.querySelectorAll('.scramble').forEach(el=>scrambleObs.observe(el));
 
-/* sw obs - handled by new advanced JS */
+
+/* ─── SOFTWARE RINGS ANIMATION ─── */
+(function(){
+  const swGrid = document.getElementById('softwareGrid');
+  if(!swGrid) return;
+  const swObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.querySelectorAll('.fill[data-pct]').forEach(function(circle){
+        const pct = parseFloat(circle.getAttribute('data-pct'));
+        const r = parseFloat(circle.getAttribute('r')) || 45;
+        const circumference = 2 * Math.PI * r;
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference;
+        setTimeout(function(){
+          circle.style.strokeDashoffset = circumference * (1 - pct/100);
+        }, 200);
+      });
+      swObs.unobserve(e.target);
+    });
+  }, {threshold: 0.2});
+  swObs.observe(swGrid);
+})();
+
 
 /* ─── HERO PARALLAX ON MOUSE ─── */
 const heroSection = document.querySelector('.hero');
